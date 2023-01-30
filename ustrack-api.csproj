@@ -24,8 +24,10 @@
     <None Remove="MySql.Data" />
     <None Remove="MySql.Data.EntityFrameworkCore" />
     <None Remove="MySql.EntityFrameworkCore" />
+    <None Remove="utils\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
+    <Folder Include="utils\" />
   </ItemGroup>
 </Project>

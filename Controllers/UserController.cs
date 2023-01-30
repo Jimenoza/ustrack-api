@@ -42,10 +42,12 @@ namespace ustrack_api.Controllers
         }
 
         // For a post request, I can send Class object as parameter
-        //[HttpPost]
-        //public JsonRsult register(User user)
-        //{
-        //    return new JsonResult([]);
-        //}
+        [HttpPost]
+        public JsonResult register(User user)
+        {
+            //this.context.Users.Add(user);
+            //context.SaveChanges();
+            return new Response("saved").Json();
+        }
     }
 }
