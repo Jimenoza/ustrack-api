@@ -23,30 +23,16 @@ namespace ustrack_api.Controllers
         [HttpGet]
         public JsonResult getUsers()
         {
-            //const string query = "select * from users";
-            //DataTable table = new DataTable();
-            //string dataSource = _configuration.GetConnectionString("UstrackSource");
-            //MySqlDataReader myReader;
-            //using(MySqlConnection mycon=new MySqlConnection(dataSource))
-            //{
-            //     mycon.Open();
-            //    using (MySqlCommand myCommand = new MySqlCommand(query, mycon))
-            //    {
-            //        myReader = myCommand.ExecuteReader();
-            //        table.Load(myReader);
-            //        mycon.Close();
-            //    }
-            //}
             JsonResult result = new JsonResult(this.context.Users.ToList());
             return result;
         }
 
-        // For a post request, I can send Class object as parameter
+        // Reguster
         [HttpPost]
         public JsonResult register(User user)
         {
-            //this.context.Users.Add(user);
-            //context.SaveChanges();
+            this.context.Users.Add(user);
+            context.SaveChanges();
             return new Response("saved").Json();
         }
     }
