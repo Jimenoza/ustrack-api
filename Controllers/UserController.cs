@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;
 using ustrack_api.Models;
+using System.Security.Cryptography;
+using Microsoft.EntityFrameworkCore;
+using ustrack_api.utils;
 
 namespace ustrack_api.Controllers
 {
@@ -27,13 +30,23 @@ namespace ustrack_api.Controllers
             return result;
         }
 
-        // Reguster
+        // Register user
         [HttpPost]
         public JsonResult register(User user)
         {
-            this.context.Users.Add(user);
-            context.SaveChanges();
-            return new Response("saved").Json();
+            try
+            {
+                byte[] data = System.Text.ASCIIEncoding.ASCII.GetBytes(user.password);
+                byte[] encrypted = new HMACSHA256().ComputeHash(data);
+                user.password = Convert.ToBase64String(encrypted);
+                this.context.Users.Add(user);
+                context.SaveChanges();
+                return new Response("saved").Json();
+            }
+            catch(DbUpdateException e)
+            {
+                return new Response("email exists", CodeStatusEnum.conflict).Json();
+            }
         }
     }
 }

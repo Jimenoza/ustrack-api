@@ -5,6 +5,7 @@ namespace ustrack_api.utils
 	{
 		success = 200,
 		error = 400,
+		conflict = 409,
 	}
 }
 
